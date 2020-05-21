@@ -5,12 +5,15 @@ const morgan = require('morgan');
 const DAO = require('./DAO.js');
 
 const BASEURI = '/api' ;
-const PORT = 3010;
+const PORT = 3000;
 
 app = new express();
 app.use(morgan('combined'));
 app.use(express.json());
 // app.use(cors());
+
+app.use(express.static('./build'));
+app.get('/', (req,res)=>res.redirect('/index.html'));
 
 // GET /movies
 app.get(BASEURI+'/movies', (req, res)=>{
