@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const cors = require('cors');
+// const cors = require('cors');
 
 const DAO = require('./DAO.js');
 
@@ -10,7 +10,7 @@ const PORT = 3010;
 app = new express();
 app.use(morgan('combined'));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 // GET /movies
 app.get(BASEURI+'/movies', (req, res)=>{

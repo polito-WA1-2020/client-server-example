@@ -1,4 +1,4 @@
-const APIURL = 'http://localhost:3010/api';
+const APIURL = 'http://localhost:3000/api';
 
 async function loadMovies() {
   const response = await fetch(APIURL+'/movies');
