@@ -12,19 +12,19 @@ import Row from 'react-bootstrap/Row';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { movies: [] };
+    this.state = { movies: [], loading: true };
   }
 
   componentDidMount() {
     API.loadMovies().then((movies) => {
-      this.setState({ movies: movies });
+      this.setState({ movies: movies, loading: false });
     });
   }
 
   render() {
     return (
       <Container>
-        <h1>My Movies</h1>
+        <h1>My Movies {this.state.loading ? '(...)' : ''}</h1>
         <Row>
           <MovieTable movies={this.state.movies}
             deleteMovie={this.deleteMovie} />
@@ -36,15 +36,17 @@ class App extends React.Component {
   }
 
   addMovie = async (movie) => {
+    this.setState({ loading: true });
     await API.addMovie(movie);
     let movies = await API.loadMovies();
-    this.setState({ movies: movies });
+    this.setState({ movies: movies, loading: false });
   }
 
   deleteMovie = async (movieId) => {
+    this.setState({ loading: true });
     await API.deleteMovie(movieId);
     let movies = await API.loadMovies();
-    this.setState({ movies: movies });
+    this.setState({ movies: movies, loading: false });
   }
 
 }

@@ -1,24 +1,30 @@
-let fakeMoviesDB = [
-  { id: 1, title: "Movie A", score: 4 },
-  { id: 2, title: "Movie B", score: 2 },
-  { id: 3, title: "Movie C", score: 5 },
-];
+const APIURL = 'http://localhost:3010/api';
 
 async function loadMovies() {
-  return fakeMoviesDB ;
+  const response = await fetch(APIURL+'/movies');
+  const json = await response.json();
+  return json ;
 }
 
 async function addMovie(movie) {
-  let newId=0;
-  if(fakeMoviesDB.length!==0)
-    newId=Math.max(...fakeMoviesDB.map((m)=>m.id))+1;
-  fakeMoviesDB=fakeMoviesDB.concat({id:newId, ...movie});
-  return true;
+  const response = await fetch(APIURL+'/movies', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(movie)
+  });
+  const json = await response.json();
+  return json ;
 }
 
 async function deleteMovie(id) {
-  fakeMoviesDB=fakeMoviesDB.filter((m)=>m.id!==id);
-  return true;
+  const response = await fetch(APIURL+`/movies/${id}`, {
+    method: 'delete',
+  });
+  const json = await response.json();
+  return json ;
+
 }
 
 export default { loadMovies, addMovie, deleteMovie };

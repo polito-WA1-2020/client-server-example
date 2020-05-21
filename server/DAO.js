@@ -34,3 +34,18 @@ exports.createMovie = function (movie) {
     });
   });
 };
+
+exports.deleteMovie = function (id) {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM movie WHERE id=?';
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(1);
+    });
+  });
+
+}
+
