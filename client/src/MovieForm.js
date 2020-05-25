@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 
 import Button from 'react-bootstrap/Button';
 
+import { Redirect, Link } from 'react-router-dom';
+
 
 
 class MovieForm extends React.Component {
@@ -16,11 +18,14 @@ class MovieForm extends React.Component {
       score: '',  // Select input for movie score
       key: 1,     // changing the 'key' will re-generate the form
       // (resetting the content and the validation errors)
+      submitted: false, // just-submitted a new movie?
     };
   }
 
 
   render() {
+    if (this.state.submitted)
+      return <Redirect to='/' />;
     return (
       <Form key={this.state.key} onSubmit={this.handleSubmit}>
         <Form.Group controlId='movieTitle'>
@@ -40,7 +45,8 @@ class MovieForm extends React.Component {
           </Form.Control>
         </Form.Group>
         <Form.Group controlId='movieAdd'>
-          <Button variant="primary" type="submit">Add</Button>
+          <Button variant="primary" type="submit">Add</Button>{' '}
+          <Link to='/' className='btn btn-secondary'>Cancel</Link>
         </Form.Group>
 
       </Form>
@@ -53,7 +59,7 @@ class MovieForm extends React.Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     this.props.addMovie({ title: this.state.title, score: this.state.score });
-    this.setState((state) => ({ title: '', score: '', key: state.key + 1 }));
+    this.setState((state) => ({ title: '', score: '', key: state.key + 1, submitted:true }));
   }
 
 }
