@@ -16,8 +16,5 @@ jobs:
         sudo apt update
         sudo apt install nodejs -y
         sudo apt install npm -y
-        cd /home/ubuntu/actions-runner/_work/client-server-example/client-server-example/client
-        npm install
-        npm start
         npm run build
 
